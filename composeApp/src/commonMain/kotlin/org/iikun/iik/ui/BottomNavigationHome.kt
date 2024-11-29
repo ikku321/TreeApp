@@ -12,12 +12,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -44,6 +46,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -135,9 +138,10 @@ fun AnimatedBottomNav(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .height(70.dp)
-            .background(Color(0,26,13))
-            .padding(start = 10.dp, end = 10.dp), // 导航栏背景色
+            .height(50.dp)
+            .widthIn(max = 400.dp)
+            .background(Color(0f, 0f, 0f, 1f)) // 黑色，透明度 80%
+            .padding(start = 5.dp, end = 5.dp),
         horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -166,40 +170,47 @@ fun AnimatedBottomNavItem(
     onClick: () -> Unit
 ) {
     val textWidth by animateDpAsState(
-        targetValue = if (isSelected) 50.dp else 0.dp, // 动画控制文字宽度
+        targetValue = if (isSelected) 40.dp else 0.dp, // 动画控制文字宽度
         animationSpec = tween(durationMillis = 300)
     )
 
     Row(
         modifier = Modifier
             .clickable { onClick() }
-            .height(50.dp)
-            .clip(RoundedCornerShape(20.dp))
-            .background(if (isSelected) Color(239, 240, 242) else Color.Transparent)
-            .padding(start = 16.dp)
+            .height(35.dp)
+            .clip(RoundedCornerShape(15.dp))
+            .background(if (isSelected) Color(94,133,104) else Color.Transparent)
+            .padding(start = 10.dp)
             .animateContentSize(), // 平滑调整大小
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
+        horizontalArrangement = Arrangement.Start,
+        verticalAlignment = Alignment.CenterVertically
     ) {
         // 图标
         Icon(
             painter = painterResource(icon),
             contentDescription = label,
-            tint = if (isSelected) Color(0, 40, 0) else Color.Gray,
-            modifier = Modifier.size(30.dp)
+            tint = Color(255,240,225),
+            modifier = Modifier.size(20.dp)
         )
         // 动画显示文字
-        Spacer(modifier = Modifier.width(8.dp))
-        Box(
-            modifier = Modifier.width(textWidth),
-            contentAlignment = Alignment.CenterStart
+        Spacer(modifier = Modifier.width(2.dp))
+        Row(
+            modifier = Modifier
+                .width(textWidth)
+                .height(30.dp), // 保持和 Row 一致的高度,
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             if (isSelected) {
                 Text(
                     text = label,
-                    fontSize = 16.sp,
+                    fontSize = 14.sp,
+                    textAlign = TextAlign.Center, // 文字在自身内部居中
                     fontWeight = FontWeight.Bold,
-                    color = Color(0, 40, 0)
+                    color = Color(255, 240, 225),
+                    modifier = Modifier
+                        .fillMaxWidth() // Text 占满 Box 宽度
+                        .fillMaxHeight()
                 )
             }
         }

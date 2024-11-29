@@ -1,21 +1,14 @@
-package org.iikun.iik.ui.home
+package org.iikun.iik.ui.home.indexElseUI
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
@@ -23,7 +16,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
@@ -61,11 +53,14 @@ fun VideoCard(
     modifier: Modifier = Modifier
 ) {
     // 动态高度
-    val heightTwo = listOf("130", "400", "130", "400")
-    // 动态高度
-    val randomHeight = heightTwo[Random.nextInt(heightTwo.size)].toInt()
+    val isVertical = (0..1).random() == 0 // 随机选择竖版或横版
+
+    // 动态计算宽度和高度
+    val imageWidth = if (isVertical) 216.dp else 384.dp
+    val imageHeight = if (isVertical) 384.dp else 216.dp
+
     // 卡片圆角和图片圆角
-    val CardImgRoundedCorners = 8
+    val CardImgRoundedCorners = 14
 
     Column(
         modifier = modifier
@@ -93,9 +88,9 @@ fun VideoCard(
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
-                        .clip(RoundedCornerShape(CardImgRoundedCorners.dp))
-                        .fillMaxWidth()
-                        .height(randomHeight.dp)
+                        .clip(RoundedCornerShape(8.dp))
+                        .width(imageWidth)
+                        .height(imageHeight)
                 )
             }
         }
