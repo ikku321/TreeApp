@@ -27,6 +27,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.LaunchedEffect
@@ -34,8 +35,10 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -76,7 +79,8 @@ fun HomePagerBanner(
     Box(modifier = modifier.fillMaxSize()) {
         // 主页图片 - 中间透明区域
         Image(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize(),
             painter = painterResource(image),
             contentDescription = null,
             contentScale = ContentScale.Crop
@@ -86,13 +90,21 @@ fun HomePagerBanner(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(150.dp) // 设置渐变区域的高度
+                .height(190.dp) // 设置渐变区域的高度
                 .align(Alignment.BottomCenter) // 底部对齐
                 .background(
                     Brush.verticalGradient(
                         colors = listOf(
                             Color.Transparent, // 深绿色
-                            Color(94, 133, 104).copy(alpha = 1f) // 浅绿色
+                            Color(94,133,104).copy(alpha = 0.15f), // 浅绿色
+                            Color(94,133,104).copy(alpha = 0.25f), // 浅绿色
+                            Color(94,133,104).copy(alpha = 0.35f), // 浅绿色
+                            Color(94,133,104).copy(alpha = 0.45f), // 浅绿色
+                            Color(94,133,104).copy(alpha = 0.65f), // 浅绿色
+                            Color(94,133,104).copy(alpha = 0.85f), // 浅绿色
+                            Color(94, 133, 104).copy(alpha = 0.97f), // 浅绿色
+                            Color(94, 133, 104).copy(alpha = 0.98f), // 浅绿色
+                            Color(94, 133, 104).copy(alpha = 1f), // 浅绿色
                         )
                     )
                 )
@@ -156,7 +168,8 @@ fun HoneBanner(
                     Icon(
                         modifier = modifier.size(40.dp),
                         painter = painterResource(Res.drawable.r),
-                        contentDescription = "Previous"
+                        contentDescription = "Previous",
+                        tint = Color(0f, 0f, 0f, 0.40f)
                     )
                 }
                 Spacer(modifier = Modifier.weight(1f)) // 空间分隔
@@ -169,7 +182,8 @@ fun HoneBanner(
                     Icon(
                         modifier = modifier.size(40.dp),
                         painter = painterResource(Res.drawable.l),
-                        contentDescription = "Next"
+                        contentDescription = "Next",
+                        tint = Color(0f, 0f, 0f, 0.40f)
                     )
                 }
             }
@@ -223,7 +237,7 @@ fun HoneBanner(
                                         .size(60.dp),
                                     painter = painterResource(Res.drawable.bofang),
                                     contentDescription = null,
-                                    tint = Color(255, 240, 225)
+                                    tint = Color(255, 240, 224)
                                 )
                             }
                         }
@@ -240,7 +254,16 @@ fun HoneBanner(
                                 text = "${currentItem.score}分",
                                 fontSize = 30.sp,
                                 fontWeight = FontWeight.ExtraBold,
-                                color = Color(255, 162, 67)
+                                color = Color(255, 162, 67),
+                                style = MaterialTheme.typography.h6.copy(
+                                    fontWeight = FontWeight.Bold,
+                                    color = Color(255, 163, 68),
+                                    shadow = Shadow(
+                                        color = Color.Black,        // 阴影的颜色
+                                        offset = Offset(9f, 15f),   // 阴影的偏移量
+                                        blurRadius = 2f             // 阴影的模糊度
+                                    )
+                                )
                             )
                         }
                     }
@@ -258,8 +281,8 @@ fun HoneBanner(
                         items.forEachIndexed { index, _ ->
                             Box(
                                 modifier = Modifier
-                                    .size(20.dp) // 总大小
-                                    .padding(4.dp) // 圆点之间的间距
+                                    .size(18.dp) // 总大小
+                                    .padding(3.dp) // 圆点之间的间距
                                     .let { baseModifier ->
                                         if (pagerState.currentPage == index) {
                                             // 当前页：填充颜色

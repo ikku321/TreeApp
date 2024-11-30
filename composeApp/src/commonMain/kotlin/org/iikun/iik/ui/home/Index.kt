@@ -145,10 +145,12 @@ fun IndexBottom(
             FlowColumn {
                 Box(modifier.fillMaxSize()) {
 
+                    // 主页 - 探索内容
                     IndexHomeContent {
                         // 滑动时不隐藏底部导航栏
                         // onUpdate(it)
                     }
+
 
                     // 顶部菜单栏
                     Column(
@@ -246,8 +248,8 @@ fun SelectMenu(
 fun SelectTop(
     modifier: Modifier = Modifier,
     onMenu: (Boolean) -> Unit = {  },
-    onSearch: (Boolean) -> Unit = { },
-    onClickHome: (Boolean) -> Unit = { },
+    onSearch: (Boolean) -> Unit = {  },
+    onClickHome: (Boolean) -> Unit = {  },
     onClickElse: (Boolean) -> Unit = {  }
 ) {
     // 记录当前选中的按钮索引
@@ -261,10 +263,15 @@ fun SelectTop(
                 Brush.verticalGradient(
                     colors = listOf(
                         Color.Black.copy(alpha = 1f), // 更深的黑色，渐变向透明
+                        Color.Black.copy(alpha = 0.99f), // 更深的黑色，渐变向透明
+                        Color.Black.copy(alpha = 0.95f), // 更深的黑色，渐变向透明
+                        Color.Black.copy(alpha = 0.90f), // 更深的黑色，渐变向透明
+                        Color.Black.copy(alpha = 0.80f), // 更深的黑色，渐变向透明
+                        Color.Black.copy(alpha = 0.60f), // 更深的黑色，渐变向透明
+                        Color.Black.copy(alpha = 0.30f), // 更深的黑色，渐变向透明
+                        Color.Black.copy(alpha = 0.10f), // 更深的黑色，渐变向透明
                         Color.Transparent // 完全透明
-                    ),
-                    startY = 0f, // 渐变开始的位置
-                    endY = 90f // 渐变结束的位置，与高度一致
+                    )
                 )
             )
     ) {
@@ -303,7 +310,7 @@ fun SelectTop(
                     text = "主页",
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp,
-                    color = if (isSelected) Color.Black else Color.White,
+                    color = if (isSelected) Color.Black else Color(254,241,224),
                     modifier = Modifier
                         .padding(8.dp)
                         .clip(RoundedCornerShape(14.dp))
@@ -334,7 +341,7 @@ fun SelectTop(
                     text = "其他",
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp,
-                    color = if (isSelected) Color.Black else Color.White,
+                    color = if (isSelected) Color.Black else Color(254,241,224),
                     modifier = Modifier
                         .padding(8.dp)
                         .clip(RoundedCornerShape(14.dp))

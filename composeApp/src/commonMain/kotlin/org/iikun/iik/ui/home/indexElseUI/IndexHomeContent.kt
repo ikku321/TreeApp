@@ -68,7 +68,6 @@ fun IndexHomeContent(
 
             // 瀑布流
             item {
-
                 StaggeredVerticalGrid(
                     modifier = Modifier.fillMaxHeight(),
                     columns = 2,

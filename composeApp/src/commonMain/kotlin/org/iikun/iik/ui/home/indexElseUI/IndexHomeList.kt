@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -60,7 +61,9 @@ fun VideoCard(
     val imageHeight = if (isVertical) 384.dp else 216.dp
 
     // 卡片圆角和图片圆角
-    val CardImgRoundedCorners = 14
+    val CardImgRoundedCorners = 10
+    // 图片圆角
+    val ImageRc = 4
 
     Column(
         modifier = modifier
@@ -72,7 +75,10 @@ fun VideoCard(
     ) {
         // 卡片显示图片
         Card(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .width(imageWidth)
+                .height(imageHeight),
             elevation = 8.dp,  // 增加阴影的深度，使卡片看起来更立体
             shape = RoundedCornerShape(CardImgRoundedCorners.dp),
             backgroundColor = Color(255, 240, 225) // 设置卡片的背景色
@@ -80,7 +86,6 @@ fun VideoCard(
             Row(
                 modifier = modifier
                     .padding(2.dp)
-                    .clip(RoundedCornerShape(CardImgRoundedCorners.dp))
             ) {
                 // 动态图片区域
                 Image(
@@ -88,9 +93,8 @@ fun VideoCard(
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
-                        .clip(RoundedCornerShape(8.dp))
-                        .width(imageWidth)
-                        .height(imageHeight)
+                        .clip(RoundedCornerShape(ImageRc.dp))
+                        .fillMaxSize()
                 )
             }
         }
@@ -105,13 +109,13 @@ fun VideoCard(
             Text(
                 modifier = modifier, // 添加阴影,
                 text = "${item.size}集",
-                fontSize = 10.sp,
-                style = MaterialTheme.typography.body2.copy(
+                fontSize = 14.sp,
+                style = MaterialTheme.typography.overline.copy(
                     fontWeight = FontWeight.Bold,
                     color = Color(255, 163, 68),
                     shadow = Shadow(
-                        color = Color.Black,        // 阴影的颜色
-                        offset = Offset(3f, 3f),   // 阴影的偏移量
+                        color = Color(0,86,47),        // 阴影的颜色
+                        offset = Offset(4f, 9f),   // 阴影的偏移量
                         blurRadius = 2f             // 阴影的模糊度
                     )
                 ),
@@ -121,13 +125,13 @@ fun VideoCard(
             Text(
                 modifier = modifier, // 添加阴影,
                 text = item.time,
-                fontSize = 10.sp,
-                style = MaterialTheme.typography.body2.copy(
+                fontSize = 14.sp,
+                style = MaterialTheme.typography.overline.copy(
                     fontWeight = FontWeight.Bold,
                     color = Color(255, 163, 68),
                     shadow = Shadow(
-                        color = Color.Black,        // 阴影的颜色
-                        offset = Offset(3f, 3f),   // 阴影的偏移量
+                        color = Color(0,86,47),        // 阴影的颜色
+                        offset = Offset(4f, 9f),   // 阴影的偏移量
                         blurRadius = 2f             // 阴影的模糊度
                     )
                 ),
@@ -139,12 +143,12 @@ fun VideoCard(
         Text(
             text = item.title,
             fontSize = 16.sp,
-            style = MaterialTheme.typography.h6.copy(
+            style = MaterialTheme.typography.overline.copy(
                 fontWeight = FontWeight.Bold,
-                color = Color(255, 163, 68),
+                color = Color(255,241,225),
                 shadow = Shadow(
-                    color = Color.Black,        // 阴影的颜色
-                    offset = Offset(3f, 3f),   // 阴影的偏移量
+                    color = Color(0,86,47),        // 阴影的颜色
+                    offset = Offset(4f, 9f),   // 阴影的偏移量
                     blurRadius = 2f             // 阴影的模糊度
                 )
             ),
@@ -166,12 +170,12 @@ fun VideoCard(
                 modifier = modifier, // 添加阴影,
                 text = "^${item.created}",
                 fontSize = 10.sp,
-                style = MaterialTheme.typography.h6.copy(
+                style = MaterialTheme.typography.overline.copy(
                     fontWeight = FontWeight.Bold,
                     color = Color(255, 163, 68),
                     shadow = Shadow(
-                        color = Color.Black,        // 阴影的颜色
-                        offset = Offset(3f, 3f),   // 阴影的偏移量
+                        color = Color(0,86,47),        // 阴影的颜色
+                        offset = Offset(4f, 9f),   // 阴影的偏移量
                         blurRadius = 2f             // 阴影的模糊度
                     )
                 ),
@@ -182,12 +186,12 @@ fun VideoCard(
                 modifier = modifier,
                 text = "${item.score}分",
                 fontSize = 14.sp,
-                style = MaterialTheme.typography.h6.copy(
+                style = MaterialTheme.typography.overline.copy(
                     fontWeight = FontWeight.Bold,
                     color = Color(255, 163, 68),
                     shadow = Shadow(
-                        color = Color.Black,        // 阴影的颜色
-                        offset = Offset(3f, 3f),   // 阴影的偏移量
+                        color = Color(0,86,47),        // 阴影的颜色
+                        offset = Offset(4f, 9f),   // 阴影的偏移量
                         blurRadius = 2f             // 阴影的模糊度
                     )
                 ),

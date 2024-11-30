@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -80,8 +81,28 @@ fun BottomNavigationHome(
     // 使用一个 state 来控制底部按钮的显示/隐藏
     var isBottomNavVisible by remember { mutableStateOf(true) }
 
-    Box(
-        modifier = Modifier.fillMaxSize()
+    Scaffold(
+        bottomBar = {
+            // 底部导航栏
+            AnimatedVisibility(
+                modifier = Modifier
+                    .padding(top = 40.dp, start = 10.dp, end = 10.dp)
+                    .fillMaxWidth(1f),
+                visible = isBottomNavVisible,
+            ) {
+                Row(
+                    modifier = Modifier
+                        .padding(5.dp)
+                        .clip(shape = CircleShape)
+                        .width(300.dp),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    AnimatedBottomNav(
+                        onItemSelected = { numberId -> numberUI = numberId }
+                    )
+                }
+            }
+        }
     ) {
         when(numberUI) {
             0 -> IndexBottom(onUpdate = { isBottomNavVisible = it })
@@ -91,30 +112,8 @@ fun BottomNavigationHome(
             4 -> MeBottom()
             else -> IndexBottom(onUpdate = { isBottomNavVisible = it })
         }
-
-        // 底部导航栏
-        AnimatedVisibility(
-            modifier = Modifier
-                .align(Alignment.BottomCenter) // 确保导航栏对齐底部并居中
-                .padding(15.dp)
-                .clip(RoundedCornerShape(40.dp))
-                .fillMaxWidth(), // 保证底部导航栏宽度,
-            visible = isBottomNavVisible
-        ) {
-            Row(
-                modifier = Modifier
-                    .align(Alignment.BottomCenter) // 确保导航栏对齐底部并居中
-                    .padding(15.dp)
-                    .clip(RoundedCornerShape(40.dp))
-                    .fillMaxWidth() // 保证底部导航栏宽度
-            ) {
-                AnimatedBottomNav(
-                    onItemSelected = { numberId -> numberUI = numberId }
-                )
-            }
-        }
-
     }
+
 }
 
 /**
@@ -140,8 +139,7 @@ fun AnimatedBottomNav(
             .fillMaxWidth()
             .height(50.dp)
             .widthIn(max = 400.dp)
-            .background(Color(0f, 0f, 0f, 1f)) // 黑色，透明度 80%
-            .padding(start = 5.dp, end = 5.dp),
+            .background(Color(0f, 0f, 0f, 0.98f)), // 黑色，透明度 80%
         horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -178,11 +176,11 @@ fun AnimatedBottomNavItem(
         modifier = Modifier
             .clickable { onClick() }
             .height(35.dp)
-            .clip(RoundedCornerShape(15.dp))
+            .clip(shape = CircleShape)
             .background(if (isSelected) Color(94,133,104) else Color.Transparent)
-            .padding(start = 10.dp)
+            .padding(start = 10.dp, end = 5.dp)
             .animateContentSize(), // 平滑调整大小
-        horizontalArrangement = Arrangement.Start,
+        horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
         // 图标
@@ -194,25 +192,16 @@ fun AnimatedBottomNavItem(
         )
         // 动画显示文字
         Spacer(modifier = Modifier.width(2.dp))
-        Row(
-            modifier = Modifier
-                .width(textWidth)
-                .height(30.dp), // 保持和 Row 一致的高度,
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            if (isSelected) {
-                Text(
-                    text = label,
-                    fontSize = 14.sp,
-                    textAlign = TextAlign.Center, // 文字在自身内部居中
-                    fontWeight = FontWeight.Bold,
-                    color = Color(255, 240, 225),
-                    modifier = Modifier
-                        .fillMaxWidth() // Text 占满 Box 宽度
-                        .fillMaxHeight()
-                )
-            }
+        if (isSelected) {
+            Text(
+                text = label,
+                fontSize = 14.sp,
+                textAlign = TextAlign.Center, // 文字在自身内部居中
+                fontWeight = FontWeight.Bold,
+                color = Color(255, 240, 225),
+                modifier = Modifier
+                    .width(textWidth) // Text 占满 Box 宽度
+            )
         }
     }
 }

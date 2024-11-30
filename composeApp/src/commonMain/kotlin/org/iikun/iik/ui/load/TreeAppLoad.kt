@@ -29,7 +29,7 @@ fun TreeAppLoad(
 ) {
 
     LaunchedEffect(Unit, {
-        delay(3000)
+        delay(2000)
         nav.navigate("Index")
     })
     Image(

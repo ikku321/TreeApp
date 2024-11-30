@@ -31,7 +31,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.BlurEffect
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Paint
+import androidx.compose.ui.graphics.drawscope.translate
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.withSave
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
@@ -44,6 +53,7 @@ import org.jetbrains.compose.resources.painterResource
 import tree_app.composeapp.generated.resources.Res
 import tree_app.composeapp.generated.resources.dingdan
 import tree_app.composeapp.generated.resources.dingdan2
+import tree_app.composeapp.generated.resources.dingdan3
 import tree_app.composeapp.generated.resources.fulitequan
 import tree_app.composeapp.generated.resources.hepl
 import tree_app.composeapp.generated.resources.huiz
@@ -67,7 +77,7 @@ val a = UserInfoModel(
 )
 
 val drawerList = listOf(
-    DrawerMenuItem(icon = Res.drawable.dingdan2, title = "订单", cls = false),
+    DrawerMenuItem(icon = Res.drawable.dingdan3, title = "订单", cls = false),
     DrawerMenuItem(icon = Res.drawable.llls, title = "浏览历史", cls = false),
     DrawerMenuItem(icon = Res.drawable.fulitequan, title = "我的福利特权", cls = true),
 
@@ -118,6 +128,7 @@ fun DrawerContent(
         IIkunHR(heightIIKun = 10)
         // 用户信息卡片
         UserInfoCard(items = a)
+        Spacer(modifier = Modifier.height(10.dp))
         // 菜单列表
         DrawerMenuList(items = drawerList)
     }
@@ -137,16 +148,17 @@ fun DrawerMenuList(
             Row(
                 modifier = modifier
                     .padding(start = 20.dp, top = 5.dp, end = 5.dp)
-                    .clickable {  }
+                    .clickable { }
                     .fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 if (item.icon != null) {
                     Image(
                         modifier = modifier
-                            .size(30.dp, 30.dp),
+                            .size(25.dp, 25.dp),
                         painter = painterResource(item.icon),
-                        contentDescription = null
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop
                     )
                 }
                 // 文字
@@ -155,7 +167,7 @@ fun DrawerMenuList(
                     fontSize = 18.sp,
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight.Bold,
-                    color = Color(255,240,225)
+                    color = Color(255, 240, 225)
                 )
             }
             // 是否显示分界线
@@ -461,15 +473,24 @@ fun IIkunHR(
     Spacer(modifier = modifier.height(heightIIKun.dp))
     Row(
         modifier = modifier
-            .padding(start = 20.dp, end = 20.dp, top = 5.dp, bottom = 5.dp)
+            .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 5.dp)
     ) {
         Card(
             modifier = modifier
                 .fillMaxWidth()
-                .height(2.dp),
-            elevation = 10.dp,
-            backgroundColor = Color(174, 201, 181)
-        ) { }
+                .height(2.dp)
+                .shadow(
+                    elevation = 4.dp, // 设置阴影高度
+                    shape = RoundedCornerShape(0.dp), // 自定义形状
+                    clip = false // 是否裁剪内容
+                ),
+            shape = RoundedCornerShape(0.dp), // 保持与 shadow 的形状一致
+            elevation = 0.dp, // 将 Card 默认的阴影去除
+            contentColor = Color(174,201,181),
+            backgroundColor = Color(174,201,181)
+        ) {
+            // 内容
+        }
     }
     Spacer(modifier = modifier.height(heightIIKun.dp))
 }
