@@ -1,7 +1,9 @@
 package org.iikun.iik.ui.load
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -34,7 +36,8 @@ fun TreeAppLoad(
     })
     Image(
         modifier = modifier
-            .fillMaxSize(),
+            .fillMaxHeight()
+            .fillMaxWidth(),
         painter = painterResource(Res.drawable.load),
         contentDescription = null
     )

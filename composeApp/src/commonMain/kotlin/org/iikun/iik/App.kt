@@ -32,7 +32,7 @@ import tree_app.composeapp.generated.resources.simyou
 @Preview
 fun App() {
     MaterialTheme(
-        // 不适用字体打包wasm会出现乱码
+        // 不使用字体打包wasm会出现乱码
         typography = Typography(
             defaultFontFamily = FontFamily(Font(Res.font.simhei, weight = FontWeight.Normal))
         )
